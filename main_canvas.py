@@ -14,7 +14,7 @@ def main():
     # Create and draw shapes
     square = Square (Point(50,50) ,side=80.0)
     rectangle = Rectangle(Point(200,50), length=100.0, width=60.0)
-    triangle = Triangle(Point(100,200), p2=Point(150,300), p3= Point(50,300))
+    triangle = Triangle(Point(150,250), base=100, height=100)
 
     square.draw_square(canvas)
     rectangle.draw_rectangle(canvas)

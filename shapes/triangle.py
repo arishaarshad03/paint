@@ -2,15 +2,20 @@ from geometry.point import Point
 from drawing.pen import Pen
 
 class Triangle:
-    def __init__(self, p1: Point, p2:Point, p3:Point):
-        self.p1 = p1
-        self.p2 = p2
-        self.p3 = p3
+    def __init__(self, point: Point, base= float, height= float):
+        self.point = point
+        self.base = base
+        self.height = height
 
     def draw_triangle(self, canvas):
-        pen = Pen(canvas, start_x=self.p1.x, start_y=self.p1.y)
-        pen.line_to(self.p2)
-        pen.line_to(self.p3)
-        pen.line_to(self.p1)
+        x = self.point.x
+        y = self.point.y
+        base = self.base
+        height = self.height
+
+        pen = Pen(canvas, start_x= x, start_y=y)
+        pen.line_to(Point(x+base , y))
+        pen.line_to(Point(x+base/2, y-height))
+        pen.line_to(Point(x,y))
 
 
