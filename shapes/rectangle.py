@@ -7,14 +7,14 @@ class Rectangle:
         self.length= length
         self.width = width
 
-    def draw_rectangle (self,canvas):
+    def draw_rectangle (self,pen: Pen):
 
         p1= self.point
         p2 = Point(p1.x + self.length, p1.y)
         p3= Point(p2.x, p2.y+self.width)
         p4= Point(p1.x,p1.y+self.width)
 
-        pen = Pen(canvas, start_x=p1.x, start_y=p1.y)
+        pen.move_to(p1)
         pen.line_to(p2)
         pen.line_to(p3)
         pen.line_to(p4)

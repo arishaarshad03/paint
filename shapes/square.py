@@ -6,7 +6,7 @@ class Square:
         self.point = point
         self.side = side
 
-    def draw_square (self,canvas):
+    def draw_square (self,pen:Pen):
         x = self.point.x
         y = self.point.y
         s = self.side
@@ -16,7 +16,7 @@ class Square:
         p3 = Point(x+s, y+s)
         p4 = Point(x, y+s)
 
-        pen = Pen(canvas, start_x=p1.x, start_y=p1.y)
+        pen.move_to(p1)
         pen.line_to(p2)
         pen.line_to(p3)
         pen.line_to(p4)

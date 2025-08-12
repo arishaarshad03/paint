@@ -7,13 +7,13 @@ class Triangle:
         self.base = base
         self.height = height
 
-    def draw_triangle(self, canvas):
+    def draw_triangle(self, pen:Pen):
         x = self.point.x
         y = self.point.y
         base = self.base
         height = self.height
 
-        pen = Pen(canvas, start_x= x, start_y=y)
+        pen.move_to(Point(x,y))
         pen.line_to(Point(x+base , y))
         pen.line_to(Point(x+base/2, y-height))
         pen.line_to(Point(x,y))
