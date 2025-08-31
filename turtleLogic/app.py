@@ -1,35 +1,60 @@
-from .command import parse_command_string 
+import tkinter as tk
+from drawing.canvas import TKpanel
 from drawing.pen import Pen
 from .turtle import Turtle
-
+from .command import SquareCommand, ZigZagCommand, CustomCommand  # your composite commands
 
 class App:
     """
-    App controller class that manages the drawing logic using Turtle and Pen.
-    It receives a canvas, initializes a Turtle, and executes commands.
-    """
+        Initialize the application:
+        - Creates a Tkinter window
+        - Initializes a canvas for drawing
+        - Creates a turtle with a pen
+        - Loads predefined commands
+        - Launches the command interface
+        """
+    
+    def __init__(self):
+        # Setup GUI window
+        self.root = tk.Tk()
+        self.root.title("Turtle")
 
-    def __init__(self, canvas, start_x = 200, start_y=200):
-        self.turtle = Turtle(Pen(canvas, start_x, start_y), start_x, start_y)
-        
+        # Setup canvas and pack
+        self.canvas = TKpanel(self.root, width=400, height=400)
+        self.canvas.pack()
 
-    def run(self, command_str, start_x = None, start_y = None):
-        # Runs the given command string, optionally repositioning the turtle.
-        if start_x is not None and start_y is not None:
-            if not isinstance(start_x, (int,float)) or not isinstance(start_y,(int,float)):
-                raise TypeError("start_x and start_y must be numbers")
+        # Create turtle and command list
+        self.turtle = Turtle(Pen(self.canvas, 200, 200), 200, 200)
+        self.commands = [SquareCommand(), ZigZagCommand(), CustomCommand()]
 
-            self.turtle.pen_up()
-            self.turtle.move_to(start_x, start_y)
-            self.turtle.pen_down()
+        # Run the launcher interface
+        self.run()
+
+        # Keep GUI alive
+        self.root.mainloop()
+
+    def run(self):
+        """
+        Displays a command menu in the terminal,
+        takes the user's choice, and executes the selected command.
+        """
+        # Display options
+        print("Available drawing commands:")
+        for i, cmd in enumerate(self.commands):         #enumerate loop over a list & get index of each item and get index each time
+            print(f"{i + 1}. {cmd.name()}")
+            # {i + 1} makes the numbering start at 1 (instead of 0) & cmd.name() calls the .name() method on the command object to get its display name.
 
         try:
-            # Parse commands; will raise ValueError if any invalid character
-            commands = parse_command_string(command_str)
-        except ValueError as e:
-            print(f"[Warning] {e}")
-            return   # skip running any commands if invalid
+            choice = int(input(f"Choose a command (1 to {len(self.commands)}): "))
 
-        # runs valid commands
-        for cmd in commands:
-            cmd.run(self.turtle)
+            if 1 <= choice <= len(self.commands):       #checks if input is valid
+                # execute the selected command
+                self.commands[choice - 1].execute(self.turtle)
+
+            else:
+                print("Invalid choice.")
+        except ValueError:
+            print("Please enter a number.")
+
+        
+

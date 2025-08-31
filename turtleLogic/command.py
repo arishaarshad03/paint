@@ -1,5 +1,5 @@
 
-# ---------- COMMAND CLASSES ----------
+# ---------- SIMPLE COMMAND CLASSES ----------
 class ForwardCommand:
     # Represents the 'F' command to move the turtle forward.
 
@@ -47,7 +47,7 @@ def parse_command_string(command_str):
     """
      
     commands = []
-     # Check for any invalid character first
+     # Check for any invalid character first and rejects if any invalid character id found
     valid_chars = {"F", "+", "-"}
     for ch in command_str.upper():
         if ch not in valid_chars:
@@ -63,3 +63,56 @@ def parse_command_string(command_str):
         elif ch == "-":
             commands.append(TurnLeftCommand())
     return commands
+
+    # ---------- COMPOSITE COMMANDS ----------
+
+class SquareCommand:
+    """Composite command: draws a square by repeating F+F+F+F+."""
+    def name(self):
+        return "Draw Square"
+
+    def execute(self, turtle):
+        pattern = "F+F+F+F+"
+        commands = parse_command_string(pattern)
+        # Run each command sequentially on the turtle
+        for cmd in commands:
+            cmd.run(turtle)
+
+class ZigZagCommand:
+    """Composite command: draws a zigzag pattern with F-F+F-F."""
+    def name(self):
+        return "Draw ZigZag"
+
+    def execute(self, turtle):
+        pattern = "F-F+F-F"
+        commands = parse_command_string(pattern)
+        for cmd in commands:
+            cmd.run(turtle)
+
+class CustomCommand:
+    """Handles user-defined turtle command string at runtime."""
+    def name(self):
+        return "Custom Command"
+
+    def execute(self, turtle):
+        """
+        Prompts user for a custom command string (F, +, -),
+        parses it, and runs the commands from the turtle's current position.
+        """
+        # Ask user to enter a valid pattern like "F+F-F+"
+        pattern = input("Enter custom command string (F = forward, + = turn right, - = turn left): ").strip()
+        if not pattern:
+            print("[Error] Empty command string!")
+            return
+        
+        try:
+            # Convert the pattern into a list of command objects
+            commands = parse_command_string(pattern)
+
+            # Run each command
+            for cmd in commands:
+                cmd.run(turtle)
+
+        except ValueError as e:
+            # Show warning for invalid characters in pattern
+            print(f"[Warning] {e}")

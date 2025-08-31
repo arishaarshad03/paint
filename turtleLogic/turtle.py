@@ -87,7 +87,7 @@ class Turtle:
             raise TypeError("angle must be a number")
         #turn left (positive) or turn right (neg) by a cretain angle
 
-        self._angle = (self._angle + angle)%360
+        self.angle = (self.angle + angle)%360
 
     def move_to(self, x, y):        #moves the turtle to a different position without drawing anything
         
