@@ -13,11 +13,11 @@ def main():
 
         app = App(canvas)
         # ----- DRAWS SQUARE -----
-        cmd1 = "F+F+F+F"  
-        app.run(cmd1, start_x=100, start_y=100)
+        cmd1 = "F+F+F+F"    
+        app.run(cmd1)       #starts at default position
 
         # draw zigzag
-        cmd2= "f+f-f+f"
+        cmd2= "f-f+f-f"
         app.run(cmd2, start_x=250,start_y=250)
 
 
