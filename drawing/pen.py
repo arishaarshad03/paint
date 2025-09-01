@@ -1,43 +1,36 @@
 from geometry.point import Point
 from drawing.canvas import TKpanel
 
-class Pen (Point):
+class Pen:
     """
     Pen class handles drawing on a canvas.
     Inherits from Point to store its current position.
     """
-    def __init__(self, canvas:TKpanel, start_x =0, start_y=0):
-        super().__init__(start_x, start_y)
+    def __init__(self, canvas:TKpanel):
         self.canvas= canvas
+        self._cp=Point(0,0)
         self._lines_drawn=0
 
-    def move_to (self,point: Point):
+    def move_to (self,point):
         # Moves the pen to a new position without drawing.
-        self.x = point.x
-        self.y = point.y
-
+        self._cp=point
+        
     def line_to(self,point:Point):
         # Draws a line from the current position to the given point,
-        # then moves the pen to that point
-        if isinstance (point, Point):
-            self.canvas.add_lines(Point(self.x, self.y), point)
-
-        # move pen to end point (destination)
-        self.x = point.x
-        self.y = point.y
-        self._lines_drawn +=1
-        
-
+        # then moves the pen to that point 
+       self.canvas.add_lines(self._cp, point)
+       self._cp = point              
+          
     def __str__(self):
-        return f"pen at position ({self.x},{self.y})"
+        return f"pen at position ({self._cp.x}, {self._cp.y})"
 
     def __repr__(self):
-        return f"Pen(x={self.x}, y={self.y})"
+       return f"Pen(x={self._cp.x}, y={self._cp.y})"
     
     def reset(self):
-        #Reset pen position to (0, 0) without drawing
-        self.x = 0
-        self.y = 0
+         # Reset pen position to (0,0) without drawing
+        self._cp = Point(0, 0)
+
     def __len__(self):
         #Return the number of lines drawn by the pen
         return self._lines_drawn
