@@ -14,10 +14,10 @@ def main():
     canvas.pack()
 
     # Create a Pen object
-    pen = Pen(canvas, start_x=0, start_y=0)
+    pen = Pen(canvas)
 
     # Create and draw shapes
-    square = Square(Point(50, 50), side=80.0)
+    square = Square(Point(150, 150), side=80.0)
     rectangle = Rectangle(Point(200, 50), length=100.0, width=60.0)
     triangle = Triangle(Point(150, 250), base=100, height=100)
 

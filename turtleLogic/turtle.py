@@ -89,15 +89,6 @@ class Turtle:
 
         self.angle = (self.angle + angle)%360
 
-    def move_to(self, x, y):        #moves the turtle to a different position without drawing anything
-        
-        if not isinstance (x, (int, float)) or not isinstance (y, (int, float)):
-            raise TypeError("x and y must be numbers")
-        #Move turtle and pen to new position (without drawing)
-        point = Point(x, y)
-        self._pen.move_to(point)     #update pen's position
-        self._position = point  # Update turtle's position too
-
     def reset(self):
         # Reset position and angle, and move pen.
         self._position = Point(0, 0)

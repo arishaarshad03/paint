@@ -24,7 +24,7 @@ class App:
         self.canvas.pack()
 
         # Create turtle and command list
-        self.turtle = Turtle(Pen(self.canvas, 200, 200), 200, 200)
+        self.turtle = Turtle(Pen(self.canvas), 200, 200)
         self.commands = [SquareCommand(), ZigZagCommand(), CustomCommand()]
 
         # Run the launcher interface

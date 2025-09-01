@@ -4,11 +4,10 @@ from drawing.canvas import TKpanel
 class Pen:
     """
     Pen class handles drawing on a canvas.
-    Inherits from Point to store its current position.
     """
     def __init__(self, canvas:TKpanel):
         self.canvas= canvas
-        self._cp=Point(0,0)
+        self._cp=Point(0,0)     # Start position at (0, 0)
         self._lines_drawn=0
 
     def move_to (self,point):
